@@ -1,0 +1,23 @@
+<aside class="spacex-filter">
+  <h4>Filters</h4>
+  <div class="spacex-filter-control-container">
+    <p class="spacex-underlined-heading">Launch Year</p>
+    <div class="spacex-flex-container" *ngFor="let year of years">
+        <button class="spacex-button" (click)="filteredDataByYear(year)">{{year}}</button>
+    </div>
+  </div>
+  <div class="spacex-filter-success-lauch-section">
+    <p class="spacex-underlined-heading">Successful Launch</p>
+    <div class="spacex-flex-container">
+        <button type="button" class="spacex-button" (click)="filterSuccessFulLaunch()">True</button>
+        <button type="button" class="spacex-button" (click)="filterFailedLaunch()">False</button>
+    </div>
+  </div>
+  <div class="spacex-filter-success-landing-section">
+    <p class="spacex-underlined-heading">Successful Landing</p>
+    <div class="spacex-flex-container">
+        <button class="spacex-button" (click)="filterSuccessLanding()">True</button>
+        <button class="spacex-button" (click)="filterFailedLanding()">False</button>
+    </div>
+  </div>
+</aside>

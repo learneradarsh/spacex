@@ -1,0 +1,35 @@
+$screen-mobile-view: 700px;
+$screen-tablet-view: 1024px;
+$screen-desktop-view: 1440px;
+.spacex-container{
+  padding: 10px 20px;
+  .spacex-flex-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .spacex-footer{
+    p{
+      text-align: center;
+    }
+  }
+  header{
+    h2 {
+      &:hover {
+        color: blue;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+
+@media screen and (min-width: 700px) {
+  .spacex-container{
+    .spacex-flex-container{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+}

@@ -1,0 +1,30 @@
+.spacex-card-container{
+  background-color: white;
+  padding: 10px;
+  margin-top: 20px;
+  border-radius: 5px;
+  .spacex-card-content {
+    div{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      line-height: 2;
+    }
+  }
+  .spacex-card-image{
+    img {
+      width: 100%;
+    }
+    figcaption{
+      text-align: center;
+    }
+  }
+}
+
+@media screen and (min-width: 700px) {
+  .spacex-card-container{
+    width: 250px;
+    height: auto;
+    min-height: 360px;
+  }
+}

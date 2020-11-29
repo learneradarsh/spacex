@@ -1,0 +1,11 @@
+:host {
+  flex-basis: 80%;
+}
+@media screen and (min-width: 700px) {
+  :host {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
+}

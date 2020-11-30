@@ -8,4 +8,5 @@ I have used:
 5. Intellij (Dev tool)
 
 ## Running unit tests
+
 npm t

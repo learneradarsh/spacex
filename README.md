@@ -7,5 +7,15 @@ I have used:
 4. Angular Testing Library
 5. Intellij (Dev tool)
 
+## Run application
+
+npm install && npm start
+
 ## Running unit tests
+
 npm t
+
+
+#Note
+Provided API is giving some issue that's why kept dummy image in place for now.
+

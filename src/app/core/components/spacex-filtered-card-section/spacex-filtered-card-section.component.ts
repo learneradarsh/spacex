@@ -8,7 +8,7 @@ import {DashboardService} from '../../services/dashboard.service';
 })
 export class SpacexFilteredCardSectionComponent implements OnInit {
   filteredCardDetailsList;
-  isDataAvailableToDisplay = true;
+  showDataLoadingText = true;
   constructor(private  readonly dashboardService: DashboardService) {
     this.getFilteredCardDetailsList();
   }
@@ -17,8 +17,9 @@ export class SpacexFilteredCardSectionComponent implements OnInit {
     this.dashboardService.finalDashboardData$.subscribe(data => {
       if (data) {
         this.filteredCardDetailsList = data;
+        this.showDataLoadingText = false;
       } else {
-        this.isDataAvailableToDisplay = false;
+        this.showDataLoadingText = false;
       }
     });
   }

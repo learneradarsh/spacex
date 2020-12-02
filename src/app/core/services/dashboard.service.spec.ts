@@ -28,6 +28,7 @@ describe('DashboardServiceTests', () => {
     httpClient.get.mockReturnValue(of(mockedWithoutFiltersAPIResponse));
     service.getDataWithOutFiltersFromAPI$().subscribe(data => {
       expect(data.length).not.toBe(0);
+      expect(data).toBe(mockedWithoutFiltersAPIResponse);
     });
   });
 });

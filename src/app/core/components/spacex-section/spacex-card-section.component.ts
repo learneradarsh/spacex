@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {DashboardService} from '../../services/dashboard.service';
-import {SpacexCardInfo} from '../../../model/SpacexCardInfo.interface';
 
 @Component({
   selector: 'app-spacex-card-section',
@@ -9,6 +8,7 @@ import {SpacexCardInfo} from '../../../model/SpacexCardInfo.interface';
 })
 export class SpacexCardSectionComponent implements OnInit {
   cardDataList: any;
+  showLoadingText = true;
   constructor(private readonly dashboardService: DashboardService) {
     this.getCardDataList();
   }
@@ -19,6 +19,7 @@ export class SpacexCardSectionComponent implements OnInit {
     });
     this.dashboardService.finalDashboardData$.subscribe(data => {
       this.cardDataList = data;
+      this.showLoadingText = false;
     });
   }
 

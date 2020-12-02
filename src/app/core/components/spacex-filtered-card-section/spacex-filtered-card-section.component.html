@@ -1,4 +1,5 @@
 <section class="spacex-flex-card-container" *ngFor="let filteredDataItem of filteredCardDetailsList">
   <app-spacex-card [cardData]="filteredDataItem"></app-spacex-card>
 </section>
-<app-no-data-to-display *ngIf="!isDataAvailableToDisplay"></app-no-data-to-display>
+<h2 *ngIf="showDataLoadingText">Data is loading...</h2>
+<app-no-data-to-display *ngIf="filteredCardDetailsList.length === 0"></app-no-data-to-display>

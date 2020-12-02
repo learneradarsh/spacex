@@ -28,7 +28,7 @@ export class DashboardService {
   }
 
   getDataWithOutFiltersFromAPI$(): Observable<SpacexCardInfo[]> {
-    return this.httpClient.get<SpacexLaunchInfoDto[]>(`${this.resourcePath}?limit=10`).pipe(
+    return this.httpClient.get<SpacexLaunchInfoDto[]>(`${this.resourcePath}?limit=8`).pipe(
       map(dataList => dataList.map(DashboardService.transformSpaceLaunchInfoDtoToSpacexCardInfo))
     );
   }

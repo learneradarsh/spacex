@@ -17,7 +17,7 @@ export class DashboardService {
   readonly finalDashboardData$ = this.finalDashboardDataSubject.asObservable();
   private static transformSpaceLaunchInfoDtoToSpacexCardInfo(launchInfo: SpacexLaunchInfoDto): SpacexCardInfo {
     return {
-        imageUrl: launchInfo.links.mission_patch,
+        imageUrl: launchInfo.links.flickr_images[0] ?? 'https://live.staticflickr.com/7885/40628434483_3545598b82_o.jpg',
         imageCaption: launchInfo.mission_name,
         wikipediaLinkUrl: launchInfo.links.wikipedia,
         missionIds: launchInfo.mission_id.length ? launchInfo.mission_id : 'no mission id available',
@@ -28,25 +28,25 @@ export class DashboardService {
   }
 
   getDataWithOutFiltersFromAPI$(): Observable<SpacexCardInfo[]> {
-    return this.httpClient.get<SpacexLaunchInfoDto[]>(`${this.resourcePath}?limit=8`).pipe(
+    return this.httpClient.get<SpacexLaunchInfoDto[]>(`${this.resourcePath}?limit=100`).pipe(
       map(dataList => dataList.map(DashboardService.transformSpaceLaunchInfoDtoToSpacexCardInfo))
     );
   }
 
   getFilteredDataByLaunchStatusFromAPI$(isSuccessfulLaunch: boolean): Observable<SpacexCardInfo[]> {
-    return this.httpClient.get<SpacexLaunchInfoDto[]>(`${this.resourcePath}?limit=10&launch_success=${isSuccessfulLaunch}`).pipe(
+    return this.httpClient.get<SpacexLaunchInfoDto[]>(`${this.resourcePath}?limit=100&launch_success=${isSuccessfulLaunch}`).pipe(
       map(dataList => dataList.map(DashboardService.transformSpaceLaunchInfoDtoToSpacexCardInfo))
     );
   }
 
   getFilteredDataByYearFromAPI$(year: number): Observable<SpacexCardInfo[]> {
-    return this.httpClient.get<SpacexLaunchInfoDto[]>(`${this.resourcePath}?limit=10&launch_success=true&land_success=true&launch_year=${year}`).pipe(
+    return this.httpClient.get<SpacexLaunchInfoDto[]>(`${this.resourcePath}?limit=100&launch_success=true&land_success=true&launch_year=${year}`).pipe(
       map(dataList => dataList.map(DashboardService.transformSpaceLaunchInfoDtoToSpacexCardInfo))
     );
   }
 
   getFilteredDataByLandingStatusFromAPI$(isSuccessfulLanding: boolean): Observable<SpacexCardInfo[]> {
-    return this.httpClient.get<SpacexLaunchInfoDto[]>(`${this.resourcePath}?limit=10&land_success=${isSuccessfulLanding}`).pipe(
+    return this.httpClient.get<SpacexLaunchInfoDto[]>(`${this.resourcePath}?limit=100&land_success=${isSuccessfulLanding}`).pipe(
       map(dataList => dataList.map(DashboardService.transformSpaceLaunchInfoDtoToSpacexCardInfo))
     );
   }

@@ -37,3 +37,27 @@
     }
   }
 }
+
+@media screen and (min-width: 700px) {
+  :host {
+    flex-basis: 35%;
+  }
+}
+
+@media screen and (min-width: 701px) and (max-width: 1023px) {
+  :host {
+    flex-basis: 30%;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  :host{
+    flex-basis: 30%;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  :host{
+    flex-basis: 20%;
+  }
+}

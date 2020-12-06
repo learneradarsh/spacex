@@ -5,7 +5,6 @@
   border-radius: 5px;
   .spacex-card-content {
     margin-top: 10px;
-    font-size: 1.5rem;
     div{
       display: flex;
       flex-direction: row;
@@ -25,13 +24,11 @@
   }
 }
 
-@media screen and (min-width: 700px) {
+
+@media screen and (min-width: 701px) {
   .spacex-card-container{
-    width: 250px;
+    width: 220px;
     height: auto;
     min-height: 360px;
-    .spacex-card-content{
-      font-size: 1rem;
-    }
   }
 }

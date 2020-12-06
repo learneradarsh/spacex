@@ -9,3 +9,25 @@
     justify-content: space-evenly;
   }
 }
+
+@media screen and (min-width: 701px) {
+  :host {
+    flex-basis: 65%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  :host {
+    flex-basis: 70%;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  :host {
+    flex-basis: 80%;
+  }
+}

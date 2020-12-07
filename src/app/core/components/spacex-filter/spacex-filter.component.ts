@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {DashboardService, FilterCriteria} from '../../services/dashboard.service';
+import {DashboardService} from '../../services/dashboard.service';
 import {Router} from '@angular/router';
+import {FilterCriteria} from '../../../model/FilterCriteria.interface';
 
 @Component({
   selector: 'app-spacex-filter',

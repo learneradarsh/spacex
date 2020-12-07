@@ -4,12 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {map, tap} from 'rxjs/operators';
 import {SpacexLaunchInfoDto} from '../../model/SpacexLaunchInfoDto';
 import {SpacexCardInfo} from '../../model/SpacexCardInfo.interface';
-
-export interface FilterCriteria {
-  launchYear?: number;
-  isLaunchSuccessful?: boolean;
-  isLandingSuccessful?: boolean;
-}
+import {FilterCriteria} from '../../model/FilterCriteria.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +18,7 @@ export class DashboardService {
   readonly finalDashboardData$ = this.finalDashboardDataSubject.asObservable();
   private static transformSpaceLaunchInfoDtoToSpacexCardInfo(launchInfo: SpacexLaunchInfoDto): SpacexCardInfo {
     return {
-        imageUrl: launchInfo.links.flickr_images[0] ?? 'https://live.staticflickr.com/7885/40628434483_3545598b82_o.jpg',
+        imageUrl: launchInfo.links.mission_patch,
         imageCaption: launchInfo.mission_name,
         wikipediaLinkUrl: launchInfo.links.wikipedia,
         missionIds: launchInfo.mission_id.length ? launchInfo.mission_id : 'no mission id available',

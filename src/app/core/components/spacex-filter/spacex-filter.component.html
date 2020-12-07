@@ -3,7 +3,7 @@
   <div class="spacex-filter-control-container">
     <p class="spacex-underlined-heading">Launch Year</p>
     <div class="spacex-flex-container" *ngFor="let year of years">
-        <button class="spacex-button" (click)="filteredDataByYear(year)">{{year}}</button>
+        <button type="button" class="spacex-button" (click)="filteredDataByYear(year)">{{year}}</button>
     </div>
   </div>
   <div class="spacex-filter-success-lauch-section">
@@ -16,8 +16,8 @@
   <div class="spacex-filter-success-landing-section">
     <p class="spacex-underlined-heading">Successful Landing</p>
     <div class="spacex-flex-container">
-        <button class="spacex-button" (click)="filterSuccessLanding()">True</button>
-        <button class="spacex-button" (click)="filterFailedLanding()">False</button>
+        <button type="button" class="spacex-button" (click)="filterSuccessLanding()">True</button>
+        <button type="button" class="spacex-button" (click)="filterFailedLanding()">False</button>
     </div>
   </div>
 </aside>

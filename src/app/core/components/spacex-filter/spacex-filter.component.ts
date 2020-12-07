@@ -32,40 +32,40 @@ export class SpacexFilterComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  private goToUrl(path: any[]) {
+    this.router.navigate(path);
+  }
+
   filterSuccessFulLaunch() {
-    this.dashboardService.getFilteredDataByLaunchStatusFromAPI$(true).subscribe(data => {
+    this.dashboardService.getFilteredDataFromAPI$({isLaunchSuccessful: true}).subscribe(data => {
       this.dashboardService.finalDashboardDataSubject.next(data);
     });
     this.goToUrl(['/filtered-data', 'successful-launch']);
   }
 
-  private goToUrl(path: any[]) {
-    this.router.navigate(path);
-  }
-
   filterFailedLaunch() {
-    this.dashboardService.getFilteredDataByLaunchStatusFromAPI$(false).subscribe(data => {
+    this.dashboardService.getFilteredDataFromAPI$({isLaunchSuccessful: false}).subscribe(data => {
       this.dashboardService.finalDashboardDataSubject.next(data);
     });
     this.goToUrl(['/filtered-data', 'failed-launch']);
   }
 
   filteredDataByYear(year: number) {
-    this.dashboardService.getFilteredDataByYearFromAPI$(year).subscribe(data => {
+    this.dashboardService.getFilteredDataFromAPI$({launchYear: year}).subscribe(data => {
       this.dashboardService.finalDashboardDataSubject.next(data);
     });
     this.goToUrl(['/filtered-data', year]);
   }
 
   filterSuccessLanding() {
-    this.dashboardService.getFilteredDataByLandingStatusFromAPI$(true).subscribe(data => {
+    this.dashboardService.getFilteredDataFromAPI$({isLandingSuccessful: true}).subscribe(data => {
       this.dashboardService.finalDashboardDataSubject.next(data);
     });
     this.goToUrl(['/filtered-data', 'successful-landing']);
   }
 
   filterFailedLanding() {
-    this.dashboardService.getFilteredDataByLandingStatusFromAPI$(false).subscribe(data => {
+    this.dashboardService.getFilteredDataFromAPI$({isLandingSuccessful: false}).subscribe(data => {
       this.dashboardService.finalDashboardDataSubject.next(data);
     });
     this.goToUrl(['/filtered-data', 'failed-landing']);

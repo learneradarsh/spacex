@@ -5,7 +5,7 @@ import {map, tap} from 'rxjs/operators';
 import {SpacexLaunchInfoDto} from '../../model/SpacexLaunchInfoDto';
 import {SpacexCardInfo} from '../../model/SpacexCardInfo.interface';
 
-interface FilterCriteria {
+export interface FilterCriteria {
   launchYear?: number;
   isLaunchSuccessful?: boolean;
   isLandingSuccessful?: boolean;

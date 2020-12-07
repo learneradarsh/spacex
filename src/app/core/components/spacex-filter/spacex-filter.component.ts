@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {DashboardService} from '../../services/dashboard.service';
+import {DashboardService, FilterCriteria} from '../../services/dashboard.service';
 import {Router} from '@angular/router';
 
 @Component({
@@ -25,6 +25,12 @@ export class SpacexFilterComponent implements OnInit {
     2019,
     2020
   ];
+  readonly filteredCriteria: FilterCriteria = {
+    isLandingSuccessful: undefined,
+    isLaunchSuccessful: undefined,
+    launchYear: null
+  };
+
   constructor(private readonly dashboardService: DashboardService,
               private readonly router: Router) {
   }
@@ -37,35 +43,40 @@ export class SpacexFilterComponent implements OnInit {
   }
 
   filterSuccessFulLaunch() {
-    this.dashboardService.getFilteredDataFromAPI$({isLaunchSuccessful: true}).subscribe(data => {
+    this.filteredCriteria.isLaunchSuccessful = true;
+    this.dashboardService.getFilteredDataFromAPI$(this.filteredCriteria).subscribe(data => {
       this.dashboardService.finalDashboardDataSubject.next(data);
     });
     this.goToUrl(['/filtered-data', 'successful-launch']);
   }
 
   filterFailedLaunch() {
-    this.dashboardService.getFilteredDataFromAPI$({isLaunchSuccessful: false}).subscribe(data => {
+    this.filteredCriteria.isLaunchSuccessful = false;
+    this.dashboardService.getFilteredDataFromAPI$(this.filteredCriteria).subscribe(data => {
       this.dashboardService.finalDashboardDataSubject.next(data);
     });
     this.goToUrl(['/filtered-data', 'failed-launch']);
   }
 
   filteredDataByYear(year: number) {
-    this.dashboardService.getFilteredDataFromAPI$({launchYear: year}).subscribe(data => {
+    this.filteredCriteria.launchYear = year;
+    this.dashboardService.getFilteredDataFromAPI$(this.filteredCriteria).subscribe(data => {
       this.dashboardService.finalDashboardDataSubject.next(data);
     });
     this.goToUrl(['/filtered-data', year]);
   }
 
   filterSuccessLanding() {
-    this.dashboardService.getFilteredDataFromAPI$({isLandingSuccessful: true}).subscribe(data => {
+    this.filteredCriteria.isLandingSuccessful = true;
+    this.dashboardService.getFilteredDataFromAPI$(this.filteredCriteria).subscribe(data => {
       this.dashboardService.finalDashboardDataSubject.next(data);
     });
     this.goToUrl(['/filtered-data', 'successful-landing']);
   }
 
   filterFailedLanding() {
-    this.dashboardService.getFilteredDataFromAPI$({isLandingSuccessful: false}).subscribe(data => {
+    this.filteredCriteria.isLandingSuccessful = false;
+    this.dashboardService.getFilteredDataFromAPI$(this.filteredCriteria).subscribe(data => {
       this.dashboardService.finalDashboardDataSubject.next(data);
     });
     this.goToUrl(['/filtered-data', 'failed-landing']);

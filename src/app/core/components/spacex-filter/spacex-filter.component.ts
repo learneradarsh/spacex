@@ -48,7 +48,11 @@ export class SpacexFilterComponent implements OnInit {
     this.dashboardService.getFilteredDataFromAPI$(this.filteredCriteria).subscribe(data => {
       this.dashboardService.finalDashboardDataSubject.next(data);
     });
-    this.goToUrl(['/filtered-data', 'successful-launch']);
+    this.goToUrl(['/filtered-data', (this.buildChangedUrl())]);
+  }
+
+  private buildChangedUrl() {
+    return Object.values(this.filteredCriteria).toString().replace(/,/g, '/');
   }
 
   filterFailedLaunch() {
@@ -56,7 +60,7 @@ export class SpacexFilterComponent implements OnInit {
     this.dashboardService.getFilteredDataFromAPI$(this.filteredCriteria).subscribe(data => {
       this.dashboardService.finalDashboardDataSubject.next(data);
     });
-    this.goToUrl(['/filtered-data', 'failed-launch']);
+    this.goToUrl(['/filtered-data', (this.buildChangedUrl())]);
   }
 
   filteredDataByYear(year: number) {
@@ -64,7 +68,7 @@ export class SpacexFilterComponent implements OnInit {
     this.dashboardService.getFilteredDataFromAPI$(this.filteredCriteria).subscribe(data => {
       this.dashboardService.finalDashboardDataSubject.next(data);
     });
-    this.goToUrl(['/filtered-data', year]);
+    this.goToUrl(['/filtered-data', (this.buildChangedUrl())]);
   }
 
   filterSuccessLanding() {
@@ -72,7 +76,7 @@ export class SpacexFilterComponent implements OnInit {
     this.dashboardService.getFilteredDataFromAPI$(this.filteredCriteria).subscribe(data => {
       this.dashboardService.finalDashboardDataSubject.next(data);
     });
-    this.goToUrl(['/filtered-data', 'successful-landing']);
+    this.goToUrl(['/filtered-data', (this.buildChangedUrl())]);
   }
 
   filterFailedLanding() {
@@ -80,6 +84,6 @@ export class SpacexFilterComponent implements OnInit {
     this.dashboardService.getFilteredDataFromAPI$(this.filteredCriteria).subscribe(data => {
       this.dashboardService.finalDashboardDataSubject.next(data);
     });
-    this.goToUrl(['/filtered-data', 'failed-landing']);
+    this.goToUrl(['/filtered-data', (this.buildChangedUrl())]);
   }
 }

@@ -6,17 +6,13 @@ describe('SpacexCardTestcases', () => {
   function setupTestSubject(data) {
     return render(
       SpacexCardComponent, {
-        componentProperties: data
+        componentProperties: {
+          cardData: data
+        }
       });
   }
 
-  it('should render component', async () => {
-    const mockData = {};
-    const component = await setupTestSubject(mockData);
-    expect(component).toBeTruthy();
-  });
-
-  it('should render all the four labels with data', async () => {
+  it('should render cards with data when data is passed', async () => {
     const mockData = {
       imageUrl: '__test__url',
       imageCaption: '__test__caption',
@@ -28,12 +24,13 @@ describe('SpacexCardTestcases', () => {
     };
     const component = await setupTestSubject(mockData);
 
+    expect(component.getByText('__test__caption')).toBeTruthy();
     expect(component.getByText('Mission Ids:')).toBeTruthy();
+    expect(component.getByText('1,2')).toBeTruthy();
     expect(component.getByText('Launch Year:')).toBeTruthy();
     expect(component.getByText('2017')).toBeTruthy();
     expect(component.getByText('Successful Launch:')).toBeTruthy();
-    expect(component.getByText('true')).toBeTruthy();
     expect(component.getByText('Successful Landing:')).toBeTruthy();
-    expect(component.getByText('true')).toBeTruthy();
+    expect(component.getAllByText('true').length).toBe(2);
   });
 });

@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import {ObjectUnsubscribedError, Observable, Subject} from 'rxjs';
+import {BehaviorSubject, combineLatest, Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
-import {map, tap} from 'rxjs/operators';
+import {map, shareReplay} from 'rxjs/operators';
 import {SpacexLaunchInfoDto} from '../../model/SpacexLaunchInfoDto';
 import {SpacexCardInfo} from '../../model/SpacexCardInfo.interface';
 import {FilterCriteria} from '../../model/FilterCriteria.interface';
@@ -13,51 +13,63 @@ import {FilterCriteria} from '../../model/FilterCriteria.interface';
 export class DashboardService {
   constructor(private readonly  httpClient: HttpClient) {
   }
-  private readonly resourcePath: string = 'https://api.spaceXdata.com/v3/launches';
-  readonly finalDashboardDataSubject = new Subject();
-  readonly finalDashboardData$ = this.finalDashboardDataSubject.asObservable();
+
+  private readonly basePath: string = 'https://api.spaceXdata.com/v3/launches';
+  private readonly allData$ = this.getDataWithOutFiltersFromAPI$().pipe(
+    shareReplay(1)
+  );
+
+  filterSelection = new BehaviorSubject<FilterCriteria>(null);
+  filterSelection$ = this.filterSelection.asObservable();
+
   private static transformSpaceLaunchInfoDtoToSpacexCardInfo(launchInfo: SpacexLaunchInfoDto): SpacexCardInfo {
     return {
-        imageUrl: launchInfo.links.mission_patch,
-        imageCaption: launchInfo.mission_name,
-        wikipediaLinkUrl: launchInfo.links.wikipedia,
-        missionIds: launchInfo.mission_id.length ? launchInfo.mission_id : 'no mission id available',
-        launchYear: launchInfo.launch_year,
-        successfulLaunch: launchInfo.launch_success,
-        successfulLanding: launchInfo.rocket.first_stage.cores[0].land_success
+      imageUrl: launchInfo.links.mission_patch,
+      imageCaption: launchInfo.mission_name,
+      wikipediaLinkUrl: launchInfo.links.wikipedia,
+      missionIds: launchInfo.mission_id.length ? launchInfo.mission_id : 'no mission id available',
+      launchYear: launchInfo.launch_year,
+      successfulLaunch: launchInfo.launch_success,
+      successfulLanding: launchInfo.rocket.first_stage.cores[0].land_success ?? false
+      // to make filter example better added false for no data condition
     };
   }
 
-  protected applyLaunchYearFilter(launchYear: number): string {
-    return launchYear ? `&launch_year=${launchYear}` : '';
-  }
-
-  protected applyLaunchSuccessStatusFilter(isLaunchSuccessful: boolean) {
-    if (isLaunchSuccessful !== undefined) {
-      return `&launch_success=${isLaunchSuccessful}`;
-    } else {
-      return '';
-    }
-  }
-
-  protected applyLandingSuccessStatusFilter(isLandingSuccessful: boolean) {
-    if (isLandingSuccessful !== undefined) {
-      return `&landing_sucess=${isLandingSuccessful}`;
-    } else {
-      return '';
-    }
-  }
-
-  getDataWithOutFiltersFromAPI$(): Observable<SpacexCardInfo[]> {
-    return this.httpClient.get<SpacexLaunchInfoDto[]>(`${this.resourcePath}?limit=100`).pipe(
+  private getDataWithOutFiltersFromAPI$(): Observable<SpacexCardInfo[]> {
+    return this.httpClient.get<SpacexLaunchInfoDto[]>(`${this.basePath}?limit=100`).pipe(
       map(dataList => dataList.map(DashboardService.transformSpaceLaunchInfoDtoToSpacexCardInfo))
     );
   }
 
-  getFilteredDataFromAPI$(filterCriteria: FilterCriteria): Observable<SpacexCardInfo[]> {
-    return this.httpClient.get<SpacexLaunchInfoDto[]>(`${this.resourcePath}?limit=100${this.applyLaunchSuccessStatusFilter(filterCriteria.isLaunchSuccessful)}${this.applyLandingSuccessStatusFilter(filterCriteria.isLandingSuccessful)}${this.applyLaunchYearFilter(filterCriteria.launchYear)}`)
+  getFilteredData$(): Observable<SpacexCardInfo[]> {
+    let filteredData: SpacexCardInfo[] = [];
+    return combineLatest([this.allData$, this.filterSelection$])
       .pipe(
-        map(dataList => dataList.map(DashboardService.transformSpaceLaunchInfoDtoToSpacexCardInfo))
+        map(([allData, filterSelection]) => {
+          if (filterSelection === null) {
+            return allData;
+          } else {
+            filteredData = [...allData];
+            if (filterSelection.launchYear !== undefined) {
+              filteredData = filteredData.filter(d => d.launchYear === filterSelection.launchYear);
+            }
+            if (filterSelection.isLaunchSuccessful !== undefined) {
+              filteredData = filteredData.filter(d => d.successfulLaunch === filterSelection.isLaunchSuccessful);
+            }
+            if (filterSelection.isLandingSuccessful !== undefined) {
+              filteredData = filteredData.filter(d => d.successfulLanding === filterSelection.isLandingSuccessful);
+            }
+            return filteredData;
+          }
+        })
       );
+  }
+
+  handleFilterSelection(filterCritera: FilterCriteria): void {
+    this.filterSelection.next(filterCritera);
+  }
+
+  resetFilterCriteria(): void {
+    this.handleFilterSelection(null);
   }
 }

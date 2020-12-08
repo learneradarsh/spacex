@@ -15,7 +15,7 @@ npm install && npm start
 
 npm t
 
+## Demo link
 
-#Note
-Provided API is giving some issue that's why kept dummy image in place for now.
+http://spacex-41a5c.web.app/
 

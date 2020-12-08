@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {DashboardService} from '../../services/dashboard.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-spacex-filtered-card-section',
@@ -9,12 +10,11 @@ import {DashboardService} from '../../services/dashboard.service';
 export class SpacexFilteredCardSectionComponent implements OnInit {
   filteredCardDetailsList;
   showDataLoadingText = true;
-  constructor(private  readonly dashboardService: DashboardService) {
-    this.getFilteredCardDetailsList();
+  constructor(private readonly dashboardService: DashboardService) {
   }
 
-  private getFilteredCardDetailsList() {
-    this.dashboardService.finalDashboardData$.subscribe(data => {
+  ngOnInit(): void {
+    this.dashboardService.getFilteredData$().subscribe(data => {
       if (data) {
         this.filteredCardDetailsList = data;
         this.showDataLoadingText = false;
@@ -22,9 +22,6 @@ export class SpacexFilteredCardSectionComponent implements OnInit {
         this.showDataLoadingText = false;
       }
     });
-  }
-
-  ngOnInit(): void {
   }
 
 }

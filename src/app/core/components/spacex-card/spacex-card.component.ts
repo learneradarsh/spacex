@@ -9,6 +9,7 @@ import {SpacexCardInfo} from '../../../model/SpacexCardInfo.interface';
 export class SpacexCardComponent implements OnInit {
 
   @Input() cardData: SpacexCardInfo;
+
   constructor() {
   }
 

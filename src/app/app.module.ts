@@ -11,6 +11,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {NoDataToDisplayComponent} from './shared/components/no-data-to-display/no-data-to-display.component';
 import { SpacexFilteredCardSectionComponent } from './core/components/spacex-filtered-card-section/spacex-filtered-card-section.component';
 import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
+import { LoaderComponent } from './shared/components/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { PageNotFoundComponent } from './shared/components/page-not-found/page-n
     SpacexFilterComponent,
     NoDataToDisplayComponent,
     SpacexFilteredCardSectionComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,

@@ -1,33 +1,61 @@
 :host {
   flex-basis: 80%;
 }
-@media screen and (min-width: 700px) {
+
+@media all and (max-width: 700px) and (min-width: 425px) {
+  :host {
+    max-width: 280px;
+    margin: 0 auto;
+  }
+}
+
+@media all and (max-width: 1024px) and (min-width: 701px) {
   :host {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    flex-basis: 60%;
     justify-content: space-evenly;
   }
 }
 
-@media screen and (min-width: 701px) {
-  :host {
-    flex-basis: 65%;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-  }
-}
-
-@media screen and (min-width: 1024px) {
-  :host {
-    flex-basis: 70%;
-  }
-}
-
-@media screen and (min-width: 1440px) {
+// desktop view
+@media all and (max-width: 1204px) and (min-width: 1025px) {
   :host {
     flex-basis: 80%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
+}
+
+@media all and (max-width: 1245px) and (min-width: 1205px) {
+  :host {
+    flex-basis: 70%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
+}
+
+@media all and (max-width: 1440px) and (min-width: 1246px) {
+  :host {
+    flex-basis: 75%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
+}
+
+@media all and (min-width: 1441px) {
+  :host {
+    flex-basis: 80%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
   }
 }

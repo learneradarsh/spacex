@@ -9,6 +9,7 @@ export interface LaunchSiteInfo {
   site_name: string;
   site_name_long: string;
 }
+
 export interface SpacexLaunchInfoDto {
   crew: string;
   details: string;
@@ -25,7 +26,7 @@ export interface SpacexLaunchInfoDto {
   links: any;
   mission_id: string[];
   mission_name: string;
-  rocket?: any;
+  rocket: any;
   ships: string[];
   static_fire_date_unix: Date;
   static_fire_date_utc: Date | string;

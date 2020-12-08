@@ -3,21 +3,35 @@
   <div class="spacex-filter-control-container">
     <p class="spacex-underlined-heading">Launch Year</p>
     <div class="spacex-flex-container" *ngFor="let year of years">
-        <button type="button" class="spacex-button" (click)="filteredDataByYear(year)">{{year}}</button>
+      <button type="button" class="spacex-button"
+              [ngClass]="{'spacex-button-selected': filteredCriteria.launchYear && filteredCriteria.launchYear === year}"
+              (click)="filteredDataByYear(year)">{{year}}</button>
     </div>
   </div>
   <div class="spacex-filter-success-lauch-section">
     <p class="spacex-underlined-heading">Successful Launch</p>
     <div class="spacex-flex-container">
-        <button type="button" class="spacex-button" (click)="filterSuccessFulLaunch()">True</button>
-        <button type="button" class="spacex-button" (click)="filterFailedLaunch()">False</button>
+      <button type="button" aria-label="spacex-button-success-launch-true" class="spacex-button"
+              [ngClass]="{'spacex-button-selected': filteredCriteria.isLaunchSuccessful && filteredCriteria.isLaunchSuccessful}"
+              (click)="filterSuccessFulLaunch()">True
+      </button>
+      <button type="button" class="spacex-button"
+              [ngClass]="{'spacex-button-selected': filteredCriteria.isLaunchSuccessful !== undefined && !filteredCriteria.isLaunchSuccessful }"
+              (click)="filterFailedLaunch()">False
+      </button>
     </div>
   </div>
   <div class="spacex-filter-success-landing-section">
     <p class="spacex-underlined-heading">Successful Landing</p>
     <div class="spacex-flex-container">
-        <button type="button" class="spacex-button" (click)="filterSuccessLanding()">True</button>
-        <button type="button" class="spacex-button" (click)="filterFailedLanding()">False</button>
+      <button type="button" class="spacex-button"
+              [ngClass]="{'spacex-button-selected': filteredCriteria.isLandingSuccessful}"
+              (click)="filterSuccessLanding()">True
+      </button>
+      <button type="button" class="spacex-button"
+              [ngClass]="{'spacex-button-selected': filteredCriteria.isLandingSuccessful !== undefined && !filteredCriteria.isLandingSuccessful}"
+              (click)="filterFailedLanding()">False
+      </button>
     </div>
   </div>
 </aside>

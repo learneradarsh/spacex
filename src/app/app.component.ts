@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
+import {Router, RouterModule, Routes} from '@angular/router';
 import {SpacexCardSectionComponent} from './core/components/spacex-section/spacex-card-section.component';
+import {DashboardService} from './core/services/dashboard.service';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +9,14 @@ import {SpacexCardSectionComponent} from './core/components/spacex-section/space
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor() {
+  constructor(private readonly dashboardService: DashboardService,
+              private readonly router: Router) {
+    this.router.navigate(['/']);
   }
   developerName = 'Adarsh';
+
+  resetFilter() {
+    this.dashboardService.resetFilterCriteria();
+    this.router.navigate(['/']);
+  }
 }
